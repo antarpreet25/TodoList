@@ -1,0 +1,38 @@
+<%- include("partials/header") %>
+
+<div class="container">
+  <h1>My Todo List</h1>
+  
+  <form action="/add" method="POST">
+    <input type="text" name="title" placeholder="New Task" />
+    <select name="priority">
+      <option value="low">Low</option>
+      <option value="high">High</option>
+      <option value="urgent">Urgent</option>
+    </select>
+    <button type="submit">Add</button>
+  </form>
+
+  <ul>
+    <% tasks.forEach(task => { %>
+      <li>
+        <strong><%= task.title %></strong> 
+        (<%= task.priority %>)
+        <form action="/edit/<%= task._id %>?_method=PUT" method="POST" style="display:inline;">
+          <input type="text" name="title" value="<%= task.title %>" required />
+          <select name="priority">
+            <option value="low" <%= task.priority === 'low' ? 'selected' : '' %>>Low</option>
+            <option value="high" <%= task.priority === 'high' ? 'selected' : '' %>>High</option>
+            <option value="urgent" <%= task.priority === 'urgent' ? 'selected' : '' %>>Urgent</option>
+          </select>
+          <button type="submit">✏️</button>
+        </form>
+        <form action="/delete/<%= task._id %>?_method=DELETE" method="POST" style="display:inline;">
+          <button type="submit">🗑️</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+</div>
+
+<%- include("partials/footer") %>

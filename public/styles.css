@@ -1,0 +1,26 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f4f4f4;
+}
+.container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+form {
+  margin: 10px 0;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  margin: 10px 0;
+  background: #eee;
+  padding: 10px;
+  border-radius: 5px;
+}
+button {
+  margin-left: 5px;
+}
