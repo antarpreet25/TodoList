@@ -12,11 +12,14 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
-// MongoDB Local
-mongoose.connect('mongodb://127.0.0.1:27017/todoDB', {
+// MongoDB connection using environment variable
+const mongoURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/todoDB';
+mongoose.connect(mongoURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+})
+.then(() => console.log('MongoDB connected'))
+.catch((err) => console.log('MongoDB connection error:', err));
 
 // Routes
 app.get('/', async (req, res) => {
@@ -42,6 +45,7 @@ app.delete('/delete/:id', async (req, res) => {
   res.send("<script>alert('Task deleted successfully'); window.location.href='/'</script>");
 });
 
+// Use PORT from Render env variable or fallback to 3000
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
